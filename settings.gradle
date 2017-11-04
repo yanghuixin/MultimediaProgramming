@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':创建图片副本', ':画画板'
