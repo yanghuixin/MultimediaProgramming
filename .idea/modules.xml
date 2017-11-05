@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MultimediaProgramming.iml" filepath="$PROJECT_DIR$/MultimediaProgramming.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/创建图片副本/创建图片副本.iml" filepath="$PROJECT_DIR$/创建图片副本/创建图片副本.iml" />
+      <module fileurl="file://$PROJECT_DIR$/测试动态添加按钮/测试动态添加按钮.iml" filepath="$PROJECT_DIR$/测试动态添加按钮/测试动态添加按钮.iml" />
       <module fileurl="file://$PROJECT_DIR$/画画板/画画板.iml" filepath="$PROJECT_DIR$/画画板/画画板.iml" />
     </modules>
   </component>
