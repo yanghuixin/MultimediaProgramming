@@ -9,9 +9,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/comment" />
+            <option value="$PROJECT_DIR$/qupai" />
+            <option value="$PROJECT_DIR$/verticalSlide" />
             <option value="$PROJECT_DIR$/创建图片副本" />
+            <option value="$PROJECT_DIR$/图片展示" />
             <option value="$PROJECT_DIR$/测试动态添加按钮" />
+            <option value="$PROJECT_DIR$/点击箭头显示下拉框" />
             <option value="$PROJECT_DIR$/画画板" />
+            <option value="$PROJECT_DIR$/确认订单页面" />
+            <option value="$PROJECT_DIR$/评论页面" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
