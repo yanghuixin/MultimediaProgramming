@@ -40,7 +40,7 @@ public class Evaluate {
     }
 
     public void setSpecifications(String specifications) {
-        specifications = specifications;
+        this.specifications = specifications;
     }
 
     public String getContent() {

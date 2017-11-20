@@ -2,18 +2,17 @@ package com.yhx.pinglun;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,16 +22,9 @@ import java.util.List;
 public class MyAdapter extends BaseAdapter {
 
     private Context context;
-    private ImageView imageView;
-    private TextView textNameView;
-    private TextView textDateView;
-    private TextView textSpecificationsView;
-    private TextView textContentView;
-    private Button thumbsUpClick;
-    private Button commentClick;
     private List<Evaluate> evaluateList;
-    private EditText tv;
-    private ListView listView;
+    private List<Content> contentList;
+    private ViewHolder viewHolder;
     MyAdapter(Context context, List<Evaluate> evaluateList) {
         this.context = context;
         this.evaluateList = evaluateList;
@@ -40,62 +32,99 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return evaluateList.size();
+        return evaluateList.size() == 0 ? 0 : evaluateList.size();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Evaluate evaluate = evaluateList.get(position);
-        View view = View.inflate(context,R.layout.item_view,null);
+        if (convertView==null){
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_view, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder= (ViewHolder) convertView.getTag();
+        }
 
-        imageView = view.findViewById(R.id.iv);
-        textNameView = view.findViewById(R.id.tv_name);
-        textDateView = view.findViewById(R.id.tv_date);
-        textSpecificationsView = view.findViewById(R.id.tv_specifications);
-        textContentView = view.findViewById(R.id.tv_content);
-        imageView.setBackground(Drawable.createFromPath(evaluate.getImageUrl()));
-        textNameView.setText(evaluate.getUsername());
-        textDateView.setText(evaluate.getDate());
-        textSpecificationsView.setText(evaluate.getSpecifications());
-        textContentView.setText(evaluate.getContent());
+        viewHolder.imageView.setBackground(Drawable.createFromPath(evaluate.getImageUrl()));
+        viewHolder.textNameView.setText(evaluate.getUsername());
+        viewHolder.textDateView.setText(evaluate.getDate());
+        viewHolder.textSpecificationsView.setText(evaluate.getSpecifications());
+        viewHolder.textContentView.setText(evaluate.getContent());
 
-        thumbsUpClick = view.findViewById(R.id.bt_thumbsUp);
-        thumbsUpClick.setOnClickListener(new View.OnClickListener() {
+        viewHolder.thumbsUpClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thumbsUpClick.setBackgroundColor(Color.RED);
+                viewHolder.iv_thumbsUp.setImageResource(R.drawable.icon_praise);
+                if (viewHolder.tv_thumbsUp.getText() == null || viewHolder.tv_thumbsUp.getText() == ""){
+                    viewHolder.tv_thumbsUp.setText("自己");
+                    System.out.println(viewHolder.tv_thumbsUp.getText() + "点赞");
+                }else {
+                    viewHolder.tv_thumbsUp.setText( viewHolder.tv_thumbsUp.getText() + "，他人");
+                    System.out.println(viewHolder.tv_thumbsUp.getText() + "点赞");
+                }
             }
         });
-        commentClick = view.findViewById(R.id.bt_comment);
-        tv = view.findViewById(R.id.popup_live_comment_edit);
-        listView = view.findViewById(R.id.content_listView);
-        commentClick.setOnClickListener(new View.OnClickListener() {
+
+        contentList = new ArrayList<Content>();
+        viewHolder.commentClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.showCommentEdit((Activity) context, v, new Utils.liveCommentResult() {
                     @Override
                     public void onResult(boolean confirmed, String comment) {
                         if (confirmed) {
-                            //这句会报错，报错为不能在AdapterView里为listView添加view
-                            // 我需要你给我一个思路，这块怎么做
-                            //listView.addView(tv);
-                            Toast.makeText(context,tv.getText(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(context,comment, Toast.LENGTH_LONG).show();
+                            Content content = new Content();
+                            content.setUsername("hehe");
+                            content.setContent(comment);
+                            contentList.add(content);
+                            if (contentList.size() != 0){
+                                viewHolder.listView.setAdapter(new ContentAdapter(context,contentList));
+                                System.out.println("用户评论了");
+                            }
                         }
                     }
                 });
             }
         });
-        return view;
+        return convertView;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return evaluateList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
+    }
+
+    class ViewHolder{
+        private ImageView imageView;
+        private TextView textNameView;
+        private TextView textDateView;
+        private TextView textSpecificationsView;
+        private TextView textContentView;
+        private TextView tv_thumbsUp;
+        private ImageView iv_thumbsUp;
+        private Button thumbsUpClick;
+        private Button commentClick;
+        private ListView listView;
+
+        public ViewHolder(View convertView) {
+            imageView = convertView.findViewById(R.id.iv);
+            textNameView = convertView.findViewById(R.id.tv_name);
+            textDateView = convertView.findViewById(R.id.tv_date);
+            textSpecificationsView = convertView.findViewById(R.id.tv_specifications);
+            textContentView = convertView.findViewById(R.id.tv_content);
+            tv_thumbsUp = convertView.findViewById(R.id.tv_thumbsUp);
+            iv_thumbsUp = convertView.findViewById(R.id.iv_thumbsUp);
+            thumbsUpClick = convertView.findViewById(R.id.bt_thumbsUp);
+            commentClick = convertView.findViewById(R.id.bt_comment);
+            listView = convertView.findViewById(R.id.content_listView);
+        }
     }
 
 }

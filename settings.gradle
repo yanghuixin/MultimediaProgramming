@@ -1,1 +1,1 @@
-include ':图片展示', ':创建图片副本', ':画画板', ':测试动态添加按钮', ':确认订单页面', ':verticalSlide', ':点击箭头显示下拉框', ':评论页面', ':撕衣服', ':videoplayer', ':VideoView', ':照相和摄像', 'qupai', 'app', ':qupai', ':comment', ':MusicPlayer'
+include ':图片展示', ':创建图片副本', ':画画板', ':测试动态添加按钮', ':确认订单页面', ':verticalSlide', ':点击箭头显示下拉框', ':撕衣服', ':videoplayer', ':VideoView', ':照相和摄像', 'qupai', 'app', ':qupai', ':comment', ':MusicPlayer', ':评论页面'
