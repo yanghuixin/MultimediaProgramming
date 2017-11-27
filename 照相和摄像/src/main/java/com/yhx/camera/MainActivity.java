@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(new File("sdcard/haha2.3gp")));
+        //设置图像清晰度
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,1);
         startActivityForResult(intent,20);
     }
